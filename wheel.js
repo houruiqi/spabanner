@@ -3,6 +3,7 @@ var $wheel = (function(){
     var $box = $('.box');
     var index = 1;
     var intervalId;
+    var doing = false;
     var cfg = {
         container:'#box'
     }; 
@@ -39,12 +40,18 @@ var $wheel = (function(){
             $('#right').css('opacity',0);
         })
         // 点击
-        $('#left').click(function(){
-            nextPage(true);
-        })
-        $('#right').click(function(){
-            nextPage(false);
-        })
+        if(doing == false){
+            $('#left').click(function(){
+                doing = true;
+                nextPage(true);
+            })
+        }
+        if(doing == false){
+            $('#right').click(function(){
+                doing = true;
+                nextPage(false);
+            })
+        }
         // 点击下面按钮
         $('ul').find('li').on('click', function(){
             index = $(this).index();
@@ -126,6 +133,7 @@ var $wheel = (function(){
                 $('#slider').css('transition-duration','1s');
             }
         }
+        doing = false;
     }
     return {
         show:show
